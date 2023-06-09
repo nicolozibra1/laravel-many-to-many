@@ -24,7 +24,16 @@ class StoreTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique:types|max:150|min:3'
+        ];
+    }
+    public function message()
+    {
+        return [
+            'name.required' => 'The name is required',
+            'name.unique:types' => 'This name already exist',
+            'name.max' => 'The name must be a maximum of :max characters long',
+            'name.min' => 'The name must be a minimum of :min characters long',
         ];
     }
 }
