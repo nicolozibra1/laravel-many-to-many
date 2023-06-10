@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\Type;
+use App\Models\Technology;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Doctrine\DBAL\Schema\View;
@@ -42,7 +43,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -58,6 +60,10 @@ class ProjectController extends Controller
         $data['slug'] = $slug;
         $data['user_id'] = Auth::id();
         $project = Project::create($data);
+
+        if($request->has('technologies')) {
+            $project->technologies()->attach($request->technologies);
+        }
 
         return redirect()->route('admin.projects.show', $project->slug);
     }
@@ -88,7 +94,8 @@ class ProjectController extends Controller
             abort(403);
         }
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -104,6 +111,14 @@ class ProjectController extends Controller
         $slug = Str::slug($request->title, '-');
         $data['slug'] = $slug;
         $project->update($data);
+
+        if($request->has('technologies')) {
+            $project->technologies()->sync($request->technologies);
+        }
+        else {
+           $project->technologies()->sync([]);
+        }
+
         return redirect()->route('admin.projects.show', $project->slug)->with('message', 'The project has been updated');
     }
 

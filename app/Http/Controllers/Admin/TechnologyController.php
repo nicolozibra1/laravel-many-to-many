@@ -56,8 +56,7 @@ class TechnologyController extends Controller
      */
     public function show(Technology $technology)
     {
-        // $projects = Project::where('type_id', $type->id)->get();
-        // return view('admin.types.show', compact('type','projects'));
+        //
     }
 
     /**

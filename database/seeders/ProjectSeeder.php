@@ -24,7 +24,6 @@ class ProjectSeeder extends Seeder
             $newProject->image = $project['image'];
             $newProject->description = $project['description'];
             $newProject->functionality = $project['functionality'];
-            $newProject->technologies = $project['technologies'];
             $newProject->resource = $project['resource'];
             $newProject->save();
         }

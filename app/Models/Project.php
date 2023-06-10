@@ -11,7 +11,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','title', 'slug', 'image', 'description', 'functionality', 'technologies', 'resource', 'type_id'];
+    protected $fillable = ['user_id','title', 'slug', 'image', 'description', 'functionality', 'resource', 'type_id'];
 
     public function user(): BelongsTo
     {
@@ -21,5 +21,10 @@ class Project extends Model
     public function type(): BelongsTo
     {
         return $this->belongsTo(Type::class);
+    }
+
+    public function technologies()
+    {
+        return $this->belongsToMany(Technology::class);
     }
 }

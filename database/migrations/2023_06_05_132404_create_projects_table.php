@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->string('functionality')->nullable();
-            $table->string('technologies')->nullable();
             $table->string('resource')->nullable();
             $table->timestamps();
         });

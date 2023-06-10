@@ -20,8 +20,14 @@
                 <p>{{$project->functionality}}</p>
             </div>
             <div class="col-3 text-center">
-                <h6 class="text-black fw-semibold">Technologies: </h6>
-                <p>{{$project->technologies}}</p>
+                @if ($project->technologies && count($project->technologies) > 0)
+                    <h6 class="text-black fw-semibold">Technologies: </h6>
+                    <div>
+                        @foreach ($project->technologies as $technology)
+                            <span class="badge rounded-pill text-bg-info">{{$technology->name}}</span>
+                        @endforeach
+                    </div>
+                @endif
             </div>
             <div class="col-3 text-center">
                 <h6 class="text-black fw-semibold">Resource: </h6>

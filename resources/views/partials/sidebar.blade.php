@@ -29,12 +29,6 @@
 
     <!-- Nav Item Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.posts.index') }}" role="button">
-            <i class="fa-solid fa-note-sticky"></i>
-            <span>Posts</span>
-        </a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link" href="{{route('admin.projects.index')}}">
             <i class="fa-solid fa-layer-group"></i>
             <span>Projects</span>
@@ -47,9 +41,9 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{route('admin.technologies.index')}}">
             <i class="fa-solid fa-tags"></i>
-            <span>Tags</span>
+            <span>Technologies</span>
         </a>
     </li>
 
