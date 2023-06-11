@@ -12,7 +12,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use Doctrine\DBAL\Schema\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProjectController extends Controller
@@ -58,6 +58,10 @@ class ProjectController extends Controller
         $data = $request->validated();
         $slug = Str::slug($request->title, '-');
         $data['slug'] = $slug;
+        if ($request->hasFile('image')) {
+            $image_path = Storage::put('uploads', $request->image);
+            $data['image'] = asset('storage/' . $image_path);
+        }
         $data['user_id'] = Auth::id();
         $project = Project::create($data);
 
@@ -110,6 +114,10 @@ class ProjectController extends Controller
         $data = $request->validated();
         $slug = Str::slug($request->title, '-');
         $data['slug'] = $slug;
+        if ($request->hasFile('image')) {
+            $image_path = Storage::put('uploads', $request->image);
+            $data['image'] = asset('storage/' . $image_path);
+        }
         $project->update($data);
 
         if($request->has('technologies')) {
