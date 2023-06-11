@@ -115,6 +115,9 @@ class ProjectController extends Controller
         $slug = Str::slug($request->title, '-');
         $data['slug'] = $slug;
         if ($request->hasFile('image')) {
+            if($project->image){
+                Storage::delete($project->image);
+            }
             $image_path = Storage::put('uploads', $request->image);
             $data['image'] = asset('storage/' . $image_path);
         }
@@ -138,6 +141,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if($project->image){
+            Storage::delete($project->image);
+        }
         $project->delete();
         return redirect()->route('admin.projects.index')->with('message', "$project->title has been deleted");
     }
